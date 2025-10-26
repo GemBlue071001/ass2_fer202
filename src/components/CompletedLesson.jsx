@@ -16,6 +16,7 @@ const AllLessons = () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             let result = await response.json();
+            result = result.filter(x => x.isCompleted)
             // Sort by id in descending order as required
             result = result.sort((a, b) => b.id - a.id);
             setCourses(result)
@@ -32,30 +33,6 @@ const AllLessons = () => {
         getAllCourse()
     }, [])
 
-    const handleDelete = async (lessonId) => {
-        // TODO: Implement delete functionality
-        try {
-            setLoading(true)
-            const response = await fetch(`https://68fe2a877c700772bb12feec.mockapi.io/SE151037/${lessonId}`, {
-                method: "DELETE"
-            })
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`)
-            }
-
-            const result = await response.json()
-            console.log("Lesson created successfully:", result)
-
-        } catch (err) {
-            console.error("Error creating lesson:", err)
-        } finally {
-            setLoading(false)
-            getAllCourse()
-        }
-
-
-        // You can add actual delete API call here
-    }
     const navigate = useNavigate()
     return (
         <>
@@ -104,7 +81,6 @@ const AllLessons = () => {
                                 <th>Title</th>
                                 <th>Level</th>
                                 <th>Estimated Time</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,29 +113,6 @@ const AllLessons = () => {
                                             <td>
                                                 <i className="bi bi-clock-fill me-1 text-muted"></i>
                                                 {lesson.estimatedTime} min
-                                            </td>
-                                            <td>
-                                                <div className="d-flex gap-2">
-                                                    <Button
-                                                        as={Link}
-                                                        to={`/edit/${lesson.id}`}
-                                                        variant="outline-primary"
-                                                        size="sm"
-                                                        title="Edit Lesson"
-                                                    >
-                                                        <i className="bi bi-pencil-fill me-1"></i>
-                                                        Edit
-                                                    </Button>
-                                                    <Button
-                                                        variant="outline-danger"
-                                                        size="sm"
-                                                        onClick={() => handleDelete(lesson.id)}
-                                                        title="Delete Lesson"
-                                                    >
-                                                        <i className="bi bi-trash-fill me-1"></i>
-                                                        Delete
-                                                    </Button>
-                                                </div>
                                             </td>
                                         </tr>
                                     )
