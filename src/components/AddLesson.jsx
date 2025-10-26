@@ -109,7 +109,7 @@ const AddLesson = () => {
             }
 
             // Submit to API
-            const response = await fetch("https://68fe2a877c700772bb12feec.mockapi.io/SE151037", {
+            const response = await fetch(import.meta.env.VITE_API_BASE_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

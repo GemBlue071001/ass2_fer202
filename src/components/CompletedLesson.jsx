@@ -11,7 +11,7 @@ const AllLessons = () => {
     const getAllCourse = async () => {
         try {
             setLoading(true)
-            const response = await fetch("https://68fe2a877c700772bb12feec.mockapi.io/SE151037");
+            const response = await fetch(import.meta.env.VITE_API_BASE_URL);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

@@ -31,7 +31,7 @@ const EditLesson = () => {
         const getLessonData = async () => {
             try {
                 setLoading(true)
-                const response = await fetch(`https://68fe2a877c700772bb12feec.mockapi.io/SE151037/${id}`)
+                const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/${id}`)
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`)
                 }
@@ -144,7 +144,7 @@ const EditLesson = () => {
             }
 
             // Submit to API (PUT request for update)
-            const response = await fetch(`https://68fe2a877c700772bb12feec.mockapi.io/SE151037/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

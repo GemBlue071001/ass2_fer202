@@ -7,11 +7,14 @@ const AllLessons = () => {
     const [coureses, setCourses] = useState([]) // Initialize as empty array
     const [loading, setLoading] = useState(true) // Add loading state
     const [error, setError] = useState(null) // Add error state
+    const baseUrl = import.meta.env.VITE_API_BASE_URL
+    console.log(baseUrl);
+    
 
     const getAllCourse = async () => {
         try {
             setLoading(true)
-            const response = await fetch("https://68fe2a877c700772bb12feec.mockapi.io/SE151037");
+            const response = await fetch(baseUrl);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -36,7 +39,7 @@ const AllLessons = () => {
         // TODO: Implement delete functionality
         try {
             setLoading(true)
-            const response = await fetch(`https://68fe2a877c700772bb12feec.mockapi.io/SE151037/${lessonId}`, {
+            const response = await fetch(`${baseUrl}/${lessonId}`, {
                 method: "DELETE"
             })
             if (!response.ok) {
